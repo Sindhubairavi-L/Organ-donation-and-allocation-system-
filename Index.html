@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organ Donation and Allocation System</title>
+    <style>
+         /* General Reset */
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #fff;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Section Styles */
+        .section {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateY(20px); /* Initial position for slide effect */
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0); /* Slide to original position */
+        }
+
+        /* Header Styles */
+        h1, h2 {
+            color: #ff0000; /* Red */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        h3 {
+            color: #fff;
+            margin: 15px 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Paragraph Styles */
+        p {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        /* Button Styles */
+        .button {
+            background-color: #ff0000; /* Red */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            background-color: #cc0000; /* Darker Red */
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s forwards;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s forwards;
+        }
+
+        .bounce {
+            animation: bounce 1s infinite;
+        }
+
+        .zoom-in {
+            animation: zoomIn 0.5s forwards;
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #fff;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #ff0000; /* Red */
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: #333;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Link Styles */
+        a {
+            color: #ff0000; /* Red */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            .button {
+                padding: 8px 15px;
+            }
+            form {
+                width: 95%;
+            }
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            color: #fff;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+  
+
+
+        
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="section active">
+        <h1>Be a Life Saver, Make a Difference</h1>
+        <p>Your decision today can be someone's tomorrow.</p>
+        <button class="button" onclick="showSection('register')">Let's Create the Journey</button>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="section">
+        <div class="form-header">
+            <h2>Registration Page</h2>
+        </div>
+        <form id="registrationForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="blood-type">Blood Type:</label>
+            <select id="blood-type" name="blood-type" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+
+            <label for="organ-type">Organ Type:</label>
+            <select id="organ-type" name="organ-type" required>
+                <option value="kidney">Kidney</option>
+                <option value="liver">Liver</option>
+                <option value="heart">Heart</option>
+                <option value="lungs">Lungs</option>
+            </select>
+
+            <label for="status">Are you a Donor or a Recipient?</label>
+            <select id="status" name="status" required>
+                <option value="donor">Donor</option>
+                <option value="recipient">Recipient</option>
+            </select>
+
+            <div id="additional-info">
+                <label for="medical-status">Medical Status (If Donor):</label>
+                <input type="text" id="medical-status" name="medical-status" placeholder="e.g., Healthy, Chronic Condition">
+
+                <label for="address">Address (If Recipient):</label>
+                <textarea id="address" name="address" placeholder="Your complete address"></textarea>
+
+                <label for="income-certificate">Income Certificate (If Recipient):</label>
+                <input type="text" id="income-certificate" name="income-certificate" placeholder="Attach your income certificate link">
+
+                <label for="medical-urgency">Medical Urgency (If Recipient):</label>
+                <input type="text" id="medical-urgency" name="medical-urgency" placeholder="e.g., Critical, Non-critical">
+            </div>
+
+            <button class="button" type="submit">Register</button>
+        </form>
+        <button class="button" onclick="showSection('organ-matching')">Go to Organ Matching</button>
+    </section>
+
+    <!-- Organ Matching Section -->
+    <section id="organ-matching" class="section">
+        <h2>Organ Matching Results</h2>
+        <button class="button" onclick="showRecentMatches()">View Recent Matches</button>
+        <div id="matching-results" style="display:none;">
+            <h3>Available Recipients</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recipient Name</th>
+                        <th>Organ Type</th>
+                        <th>Medical Urgency</th>
+                        <th>Contact Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Kidney</td>
+                        <td>Critical</td>
+                        <td>johndoe@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>Liver</td>
+                        <td>Non-critical</td>
+                        <td>janesmith@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>Mike Johnson</td>
+                        <td>Heart</td>
+                        <td>Urgent</td>
+                        <td>mikejohnson@example.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="button" onclick="showSection('update-details')">Go to Update Details</button>
+    </section>
+
+    <!-- Update Details Section -->
+    <section id="update-details" class="section">
+        <h2>Update Your Profile</h2>
+        <form id="updateForm">
+            <label for="update-name">Full Name:</label>
+            <input type="text" id="update-name" name="update-name" required>
+
+            <label for="update-email">Email:</label>
+            <input type="email" id="update-email" name="update-email" required>
+
+            <label for="update-phone">Phone Number:</label>
+            <input type="tel" id="update-phone" name="update-phone" required>
+
+            <label for="update-blood-type">Blood Type:</label>
+            <select id="update-blood-type" name="update-blood-type" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <label for="update-organ">Organ Interested in Donating/Receiving:</label>
+            <select id="update-organ" name="update-organ" required>
+                <option value="kidney">Kidney</option>
+                <option value="liver">Liver</option>
+                <option value="heart">Heart</option>
+                <option value="lungs">Lungs</option>
+            </select>
+
+            <button class="button" type="submit">Update Profile</button>
+        </form>
+        <button class="button" onclick="showSection('resources')">Go to Resources</button>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section">
+        <h2>Awareness Resources</h2>
+        <p>Find essential information and resources on organ donation.</p>
+        <ul>
+            <li><a href="https://www.organdonor.gov" target="_blank">National Organ Donation Information</a></li>
+            <li><a href="https://www DonateLife.net" target="_blank">Donate Life America</a></li>
+            <li><a href="https://www.organdonation.nhs.uk" target="_blank">NHS Organ Donation</a></li>
+        </ul>
+        <button class="button" onclick="showSection('testimonials')">Go to Testimonials</button>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <h2>Testimonials</h2>
+        <div>
+            <p><strong>Sarah M.</strong>: "Becoming a donor was one of the best decisions I've ever made. I feel like I'm making a difference."</p>
+            <p><strong>Michael T.</strong>: "Thanks to the organ donor, I got a second chance at life. Forever grateful!"</p>
+        </div>
+        <button class="button" onclick="showSection('faqs')">Go to FAQs</button>
+    </section>
+
+    <!-- FAQs Section -->
+    <section id="faqs" class="section">
+        <h2>Frequently Asked Questions</h2>
+        <div>
+            <h3>What is organ donation?</h3>
+            <p>Organ donation is the process of giving an organ to someone who needs a transplant.</p>
+
+            <h3>How do I become a donor?</h3>
+            <p>You can become a donor by signing up on your country's organ donor registry.</p>
+
+            <h3>Is there an age limit to donate organs?</h3>
+            <p>No, people of all ages can be organ donors. Your medical condition at the time of death is what matters.</p>
+        </div>
+        <button class="button" onclick="showSection('contact')">Go to Contact Page</button>
+    </section>
+
+    <!-- Contact Page Section -->
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <label for="contact-name">Name:</label>
+            <input type="text" id="contact-name" name="contact-name" required>
+
+            <label for="contact-email">Email:</label>
+            <input type="email" id="contact-email" name="contact-email" required>
+
+            <label for="contact-message">Message:</label>
+            <textarea id="contact-message" name="contact-message" required></textarea>
+
+            <button class="button" type="submit">Send Message</button>
+        </form>
+        <button class="button" onclick="showSection('welcome')">Back to Welcome Page</button>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Handle form submissions
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Registration successful!");
+            showSection('organ-matching');
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Profile updated successfully!");
+            showSection('organ-matching');
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Message sent successfully!");
+            showSection('welcome');
+        });
+
+        function showRecentMatches() {
+            document.getElementById('matching-results').style.display = 'block';
+        }
+    </script>
+</body>
+  </html>
